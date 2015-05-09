@@ -32,6 +32,7 @@ public class RegiserServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		System.out.println("doget");
 		User user = new User();
 		/*user.setUsername(request.getParameter("username"));
 		user.setPassword(request.getParameter("password"));
