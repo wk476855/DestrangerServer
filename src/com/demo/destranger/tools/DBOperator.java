@@ -15,9 +15,10 @@ public class DBOperator {
 		Connection con = null;
 		try {
 			Class.forName(DRIVER);
-			con = DriverManager.getConnection(URL_SERVER);
+			con = DriverManager.getConnection(URL_SERVER,USER,PASSWORD);
 		} catch (ClassNotFoundException e) {
 			// TODO: handle exception
+			e.printStackTrace();
 			System.out.println("driver wrong!!");
 		}
 		catch (Exception e) {

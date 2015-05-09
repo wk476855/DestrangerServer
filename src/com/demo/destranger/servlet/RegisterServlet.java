@@ -16,13 +16,13 @@ import com.demo.destranger.tools.UserDBOperator;
  * Servlet implementation class RegiserServlet
  */
 @WebServlet("/RegiserServlet")
-public class RegiserServlet extends HttpServlet {
+public class RegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RegiserServlet() {
+    public RegisterServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
