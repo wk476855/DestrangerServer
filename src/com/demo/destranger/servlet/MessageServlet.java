@@ -1,12 +1,15 @@
 package com.demo.destranger.servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.json.JSONObject;
 
 import com.demo.destranger.tools.MessageManager;
 
@@ -30,6 +33,7 @@ public class MessageServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		doPost(request, response);
 	}
 
 	/**
@@ -45,9 +49,11 @@ public class MessageServlet extends HttpServlet {
 		//TODO —È÷§session
 		
 		MessageManager mm = new MessageManager();
-		
-		
-		
+		boolean res = mm.pushMessage(username, friendname, message);
+		JSONObject json = new JSONObject();
+		PrintWriter pw = new PrintWriter(response.getOutputStream());
+		pw.write(json.toString());
+		pw.flush();
 	}
 
 }
