@@ -1,5 +1,6 @@
 package com.demo.destranger.servlet;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -9,8 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONObject;
+
 import com.demo.destranger.data.User;
-import com.demo.destranger.tools.UserDBOperator;
+import com.demo.destranger.tools.UserHelper;
 
 /**
  * Servlet implementation class RegiserServlet
@@ -32,24 +35,7 @@ public class RegisterServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println("doget");
-		User user = new User();
-		/*user.setUsername(request.getParameter("username"));
-		user.setPassword(request.getParameter("password"));
-		user.setHead(request.getParameter("head"));
-		user.setGender(Integer.valueOf(request.getParameter("gender")));
-		UserDBOperator udb = new UserDBOperator();
-		int result = udb.insert(user);
-		PrintWriter printWriter = response.getWriter();
-		printWriter.write(result);*/
-		user.setUsername("tang");
-		user.setPassword("tang");
-		user.setHead("tang");
-		user.setGender(0);
-		UserDBOperator udb = new UserDBOperator();
-		int result = udb.insert(user);
-		PrintWriter printWriter = response.getWriter();
-		printWriter.write(result);
+		
 	}
 
 	/**
@@ -57,6 +43,43 @@ public class RegisterServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		StringBuffer jb = new StringBuffer();
+		String line = null;
+		try {
+		  BufferedReader reader = request.getReader();
+		  while ((line = reader.readLine()) != null)
+		    jb.append(line);
+		} catch (Exception e) { /*report an error*/ }
+		System.out.println(jb.toString());
+		JSONObject requestJsonObject = new JSONObject(jb.toString());
+		User user = new User();
+		String username = requestJsonObject.getString("username");
+		String password = requestJsonObject.get("password").toString();
+		String head = requestJsonObject.getString("head");
+		int gender = requestJsonObject.getInt("gender");
+		user.setUsername(username);
+		user.setPassword(password);
+		user.setHead(head);
+		user.setGender(gender);
+		PrintWriter printWriter = response.getWriter();
+		JSONObject jsonObject = new JSONObject();
+		if(UserHelper.exist(user))
+		{
+			System.out.println("用戶名已存在");
+			jsonObject.put("result", "sorry,user exists");
+		}
+		else {
+			if(UserHelper.add(user))
+			{
+				System.out.println("注册成功");
+				jsonObject.put("result", "register successfully");
+			}
+			else {
+				System.out.println("注册失敗");
+				jsonObject.put("result", "register failed");
+			}
+		}
+		printWriter.write(jsonObject.toString());
 	}
 
 }
