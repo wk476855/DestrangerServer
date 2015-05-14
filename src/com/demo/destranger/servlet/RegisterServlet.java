@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONObject;
 
-import com.demo.destranger.data.User;
+import com.demo.destranger.data.UserInfo;
 import com.demo.destranger.tools.UserHelper;
 
 /**
@@ -52,7 +52,7 @@ public class RegisterServlet extends HttpServlet {
 		} catch (Exception e) { /*report an error*/ }
 		System.out.println(jb.toString());
 		JSONObject requestJsonObject = new JSONObject(jb.toString());
-		User user = new User();
+		UserInfo user = new UserInfo();
 		String username = requestJsonObject.getString("username");
 		String password = requestJsonObject.get("password").toString();
 		String head = requestJsonObject.getString("head");

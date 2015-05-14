@@ -1,12 +1,24 @@
 package com.demo.destranger.data;
 
-public class User {
+public class UserInfo {
+	private int uid;
     private String username;
     private String password;
     private int gender;
     private String head;
+    private String session;
+    private UserLoc userLoc;
 
-    public String getUsername() {
+    
+    public int getUid() {
+		return uid;
+	}
+
+	public void setUid(int uid) {
+		this.uid = uid;
+	}
+
+	public String getUsername() {
         return username;
     }
 
@@ -37,4 +49,22 @@ public class User {
     public void setHead(String head) {
         this.head = head;
     }
+
+	public String getSession() {
+		return session;
+	}
+
+	public void setSession(String session) {
+		this.session = session;
+	}
+
+	public UserLoc getUserLoc() {
+		return userLoc;
+	}
+
+	public void setUserLoc(UserLoc userLoc) {
+		this.userLoc = userLoc;
+	} 
+    
+	
 }
