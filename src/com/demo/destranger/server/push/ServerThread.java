@@ -1,4 +1,4 @@
-package com.demo.destranger.server;
+package com.demo.destranger.server.push;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -12,16 +12,18 @@ public class ServerThread extends Thread {
 	public void run() {
 		int port = 12345;
 		try {
-			server = new ServerSocket(port);
+			server = new ServerSocket(port, 10);
 			if(server == null) {
-				System.out.println("启动失败！,请查看端口"+port+"是否被占");
+				System.out.println("start sever error！, check the port " + port);
 				return;
 			}
-			System.out.println("启动成功!");
+			System.out.println("start server successfully !");
 			while(!Thread.interrupted()) {
 				Socket socket = server.accept();
-				if(socket != null)
+				if(socket != null) {
+					System.out.println(socket.getInetAddress().toString() + " connected !");
 					new HandleThread(socket).start();
+				}
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

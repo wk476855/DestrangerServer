@@ -4,6 +4,8 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
+import com.demo.destranger.server.push.ServerThread;
+
 /**
  * Application Lifecycle Listener implementation class SocketServerListener
  *
@@ -34,7 +36,7 @@ public class SocketServerListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent arg0)  { 
          // TODO Auto-generated method stub
     	server.start();    	
-    	System.out.println("正在启动通信服务....");
+    	System.out.println("starting communication service....");
     }
 	
 }
