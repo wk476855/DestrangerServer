@@ -24,24 +24,30 @@ public class ReceiveHandleTask implements Runnable{
 	
 	@Override
 	public void run() {
+		boolean flag = true;
 		try{
 			while(true) {
 				ProtocolPair pair = null;
 				try {
 					pair = mSocket.receive();
+					if(pair == null)	continue;
 					if(pair != null)
-						System.out.println(pair.protocol+" : "+pair.content);
+						System.out.println("receive: " + pair.protocol+" : "+pair.content);
 					JSONObject json = new JSONObject(pair.content);
 					if(json.has("session")) {
 						String session = "";
 						session = json.getString("session");
 						if(!isSessionOutofDate(session)) {
 							username = getUserBySession(session);
+							if(flag) {
+								flag = false;
+								new Thread(new SendHandleTask(mSocket, username)).start();
+							}
 							switch(pair.protocol) {
 								case Protocol.MESSAGE_SEND:
 									Message msg = null;
 									if(json.has("message")) {
-										msg = new Gson().fromJson(json.getJSONObject("message").toString(), Message.class);
+										msg = new Gson().fromJson(json.getString("message"), Message.class);
 										msg.setTime(new Date());
 									}
 									if(msg != null) {
