@@ -9,9 +9,9 @@ public class SendQueue {
 	private static Map<String, LinkedBlockingQueue<ProtocolPair>> data = new HashMap<String, LinkedBlockingQueue<ProtocolPair>>();
 	
 	public static LinkedBlockingQueue<ProtocolPair> getQueue(String username) {
-		if(data.containsKey(username))
-			return data.get(username);
-		return null;
+		if(!data.containsKey(username))
+			register(username);
+		return data.get(username);
 	}
 	
 	public static void register(String username) {

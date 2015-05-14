@@ -45,8 +45,10 @@ public class SendHandleTask implements Runnable {
 			e.printStackTrace();
 		}finally{
 			try {
-				bos.close();
-				out.close();
+				if(out != null) {
+					bos.close();
+					out.close();	
+				}
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
