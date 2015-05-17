@@ -9,6 +9,12 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
+<<<<<<< HEAD
 	<classpathentry kind="lib" path="E:/software/mysql-connector-java/mysql-connector-java-5.1.26/mysql-connector-java-5.1.26-bin.jar"/>
+=======
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="lib" path="D:/Tomcat 8.0/lib/servlet-api.jar"/>
+>>>>>>> branch 'master' of https://github.com/wk476855/DestrangerServer.git
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
