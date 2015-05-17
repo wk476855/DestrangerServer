@@ -32,7 +32,7 @@ public class ReceiveHandleTask implements Runnable{
 					pair = mSocket.receive();
 					if(pair == null)	continue;
 					if(pair != null)
-						System.out.println("receive: " + pair.protocol+" : "+pair.content);
+						System.out.println("receive from " + mSocket.getClient() + " : " +pair.protocol+" : "+pair.content);
 					JSONObject json = new JSONObject(pair.content);
 					if(json.has("session")) {
 						String session = "";
@@ -84,7 +84,7 @@ public class ReceiveHandleTask implements Runnable{
 	}
 
 	private String getUserBySession(String session) {
-		return "A";
+		return session;
 	}
 
 	private boolean isSessionOutofDate(String session) {

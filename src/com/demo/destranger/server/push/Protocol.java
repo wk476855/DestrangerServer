@@ -9,5 +9,6 @@ public class Protocol {
     public final static int MESSAGE_SEND_COMFIRM = 0x0002;
     public final static int MESSAGE_RECEIVE = 0x0003;
     public final static int MESSAGE_RECEIVE_COMFIRM = 0x0004;
-
+    public final static int SESSION_SEND = 0x0005;
+    public final static int SESSION_SEND_COMFIRM = 0x0006;
 }

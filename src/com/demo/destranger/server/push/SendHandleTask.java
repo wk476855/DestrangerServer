@@ -30,7 +30,7 @@ public class SendHandleTask implements Runnable {
 				if(queue != null && !queue.isEmpty()) {
 					ProtocolPair pair = queue.take();
 					mSocket.send(pair);
-					System.out.println("send: " + pair.protocol + " : " + pair.content);
+					System.out.println("send to " + mSocket.getClient() + " : " + pair.protocol + " : " + pair.content);
 				}
 			}
 		}catch(InterruptedException e){

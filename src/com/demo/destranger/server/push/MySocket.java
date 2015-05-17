@@ -24,6 +24,10 @@ public class MySocket {
 		}
 	}
 	
+	public String getClient() {
+		return socket.getInetAddress().toString();
+	}
+	
 	private byte[] generateHeader(int contentLen, int protocol){
         int totalLen = contentLen + 6;
         byte[] data = new byte[totalLen];
@@ -89,7 +93,6 @@ public class MySocket {
                 if ((len = bis.read(content, 0, once)) > 0) {
                     cnt += len;
                     sb.append(new String(content, 0, len));
-                    System.err.println(new String(content, 0, len));
                     if (cnt >= contentLen) {
                         pair = new ProtocolPair(protocol, sb.toString());
                         break;
