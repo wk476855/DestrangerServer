@@ -25,7 +25,7 @@ public class UlocHelper {
 	
 	public static boolean exist(int uid)
 	{
-		String exist = "select count(*) as rowCount where uid = " + uid;
+		String exist = "select count(*) as rowCount from uloc where uid = " + uid;
 		DBOperator dbOperator = new DBOperator();
 		ResultSet rs = dbOperator.query(exist);
 		try 

@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
 
@@ -26,14 +27,21 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		System.out.println("login");
-		String requestString = request.getParameter("request");
-		JSONObject requestJsonObject = new JSONObject(requestString);
-		String username = requestJsonObject.getString("username");
-		String password = requestJsonObject.getString("password");
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
 		UserInfo user = new UserInfo();
 		user.setUsername(username);
 		user.setPassword(password);
+		HttpSession session = request.getSession(true);
+		session.setMaxInactiveInterval(30 * 60);
 		PrintWriter printWriter = response.getWriter();
 		JSONObject jsonObject = new JSONObject();
 		if(UserHelper.login(user))
@@ -50,13 +58,6 @@ public class LoginServlet extends HttpServlet {
 			jsonObject.put("result", 0);
 		}
 		printWriter.write(jsonObject.toString());
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 	}
 
 }

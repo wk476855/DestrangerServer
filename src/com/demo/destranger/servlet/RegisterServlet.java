@@ -43,20 +43,11 @@ public class RegisterServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		StringBuffer jb = new StringBuffer();
-		String line = null;
-		try {
-		  BufferedReader reader = request.getReader();
-		  while ((line = reader.readLine()) != null)
-		    jb.append(line);
-		} catch (Exception e) { /*report an error*/ }
-		System.out.println(jb.toString());
-		JSONObject requestJsonObject = new JSONObject(jb.toString());
 		UserInfo user = new UserInfo();
-		String username = requestJsonObject.getString("username");
-		String password = requestJsonObject.get("password").toString();
-		String head = requestJsonObject.getString("head");
-		int gender = requestJsonObject.getInt("gender");
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
+		String head = request.getParameter("head");
+		int gender = Integer.valueOf(request.getParameter("gender"));
 		user.setUsername(username);
 		user.setPassword(password);
 		user.setHead(head);
@@ -65,18 +56,18 @@ public class RegisterServlet extends HttpServlet {
 		JSONObject jsonObject = new JSONObject();
 		if(UserHelper.exist(user))
 		{
-			System.out.println("ÓÃ‘ôÃûÒÑ´æÔÚ");
-			jsonObject.put("result", "sorry,user exists");
+			System.out.println("ç”¨æˆ·åå·²å­˜åœ¨");
+			jsonObject.put("result", 0);
 		}
 		else {
 			if(UserHelper.add(user))
 			{
-				System.out.println("×¢²á³É¹¦");
-				jsonObject.put("result", "register successfully");
+				System.out.println("æ³¨å†ŒæˆåŠŸ");
+				jsonObject.put("result", 1);
 			}
 			else {
-				System.out.println("×¢²áÊ§”¡");
-				jsonObject.put("result", "register failed");
+				System.out.println("æ³¨å†Œå¤±è´¥");
+				jsonObject.put("result", 2);
 			}
 		}
 		printWriter.write(jsonObject.toString());
